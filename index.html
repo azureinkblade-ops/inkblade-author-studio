@@ -88,6 +88,13 @@
     .faq-item h3 { margin:0 0 6px; font-size:1.05rem; }
     .faq-item p { margin:0; color:#55606f; }
 
+    /* privacy */
+    .priv { background:#fbfcfe; border-top:1px solid #e7ecf3; }
+    .priv-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:20px; max-width:820px; margin:0 auto; }
+    .priv-card { border:1px solid #e7ecf3; border-radius:14px; padding:24px; background:#fff; }
+    .priv-card h3 { margin:0 0 8px; font-size:1.1rem; }
+    .priv-card p { margin:0; color:#55606f; }
+
     /* footer */
     footer { background:var(--navy); color:var(--gray); padding:54px 0 36px; }
     footer .cols { display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:30px; }
@@ -105,6 +112,7 @@
       .hero h1 { font-size:2.1rem; }
       nav a { margin-left:14px; font-size:.85rem; }
       .brand span { display:none; }
+      .priv-grid { grid-template-columns:1fr; }
     }
   </style>
 </head>
@@ -119,6 +127,7 @@
         <a href="#what">What we do</a>
         <a href="#examples">Examples</a>
         <a href="#products">Products</a>
+        <a href="#privacy">Privacy</a>
         <a href="#faq">FAQ</a>
         <a class="nav-cta" href="https://inkblade.gumroad.com">Shop</a>
       </nav>
@@ -310,6 +319,34 @@
           <p>Code <strong>LAUNCH</strong> gets you 20% off your first order. The Complete Author Vault is already the best value if you want everything.</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- PRIVACY -->
+  <section class="priv" id="privacy">
+    <div class="wrap">
+      <p class="eyebrow" style="text-align:center;">Privacy</p>
+      <h2>How we handle your data</h2>
+      <p class="sub">Plain-language summary. The full legal text is in our <a href="privacy.html">Privacy Policy</a>.</p>
+      <div class="priv-grid">
+        <div class="priv-card">
+          <h3>What we collect</h3>
+          <p>To publish marketing pins, our Pinterest application uses an OAuth access token we issue to our own business account. We access only our own boards and pins — we do not collect personal data from anyone who views them.</p>
+        </div>
+        <div class="priv-card">
+          <h3>How we use it</h3>
+          <p>The token and board identifiers are used solely to publish product pins (captions, calendars, image packs, bundles) to our own boards. We never sell, rent, or share data with third parties.</p>
+        </div>
+        <div class="priv-card">
+          <h3>Third parties</h3>
+          <p>Sales run through Gumroad and marketing through Pinterest. Each has its own privacy policy covering data you provide to them directly. We retain no third-party user-generated content.</p>
+        </div>
+        <div class="priv-card">
+          <h3>Contact</h3>
+          <p>Questions about this policy? Email <a href="mailto:hello@inkbladesauthorstudio.com">hello@inkbladesauthorstudio.com</a>. We'll answer within a few business days.</p>
+        </div>
+      </div>
+      <p style="text-align:center;margin-top:26px;"><a class="nav-cta" style="color:var(--navy);" href="privacy.html">Read the full Privacy Policy &rarr;</a></p>
     </div>
   </section>
 
