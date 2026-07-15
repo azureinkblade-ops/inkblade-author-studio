@@ -3,54 +3,161 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Inkblade Author Studio</title>
+  <title>Inkblade Author Studio — Done-for-you promotion tools for web novel authors</title>
+  <meta name="description" content="Marketing tools for fantasy and LitRPG authors: captions, templates, release calendars, and promo kits. Built for Royal Road and Patreon." />
   <style>
     :root { --navy:#07111F; --blue:#38C7FF; --gray:#D8DEE8; }
-    body { margin:0; font-family:system-ui,Segoe UI,Roboto,sans-serif; color:var(--navy); background:#fff; }
-    header { background:var(--navy); color:#fff; padding:48px 20px; text-align:center; }
-    header h1 { margin:0 0 8px; font-size:2rem; }
-    header p { margin:0; color:var(--gray); }
-    main { max-width:760px; margin:0 auto; padding:40px 20px; }
-    .product { border:1px solid var(--gray); border-radius:10px; padding:18px 20px; margin:16px 0; }
-    .product h2 { margin:0 0 6px; font-size:1.2rem; }
-    .product a { color:var(--blue); text-decoration:none; font-weight:600; }
-    .product a:hover { text-decoration:underline; }
-    footer { text-align:center; padding:30px 20px; color:#666; font-size:.9rem; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:system-ui,Segoe UI,Roboto,sans-serif; color:var(--navy); background:#fff; line-height:1.6; }
+    a { color:var(--blue); text-decoration:none; }
+    a:hover { text-decoration:underline; }
+    .wrap { max-width:960px; margin:0 auto; padding:0 20px; }
+
+    header.top { background:var(--navy); position:sticky; top:0; z-index:10; }
+    header.top .wrap { display:flex; align-items:center; justify-content:space-between; padding-top:14px; padding-bottom:14px; }
+    .brand { display:flex; align-items:center; gap:12px; }
+    .brand img { height:36px; width:auto; }
+    .brand span { color:#fff; font-weight:700; font-size:1.05rem; letter-spacing:.3px; }
+    nav a { color:var(--gray); margin-left:22px; font-weight:600; font-size:.95rem; }
+    nav a:hover { color:var(--blue); text-decoration:none; }
+
+    .hero { background:var(--navy); color:#fff; text-align:center; padding:64px 20px 56px; }
+    .hero img { height:96px; width:auto; margin-bottom:18px; }
+    .hero h1 { margin:0 0 12px; font-size:2.4rem; line-height:1.15; }
+    .hero p { margin:0 auto; max-width:620px; color:var(--gray); font-size:1.1rem; }
+    .hero .cta { margin-top:28px; }
+    .btn { display:inline-block; background:var(--blue); color:var(--navy); font-weight:700; padding:13px 26px; border-radius:8px; }
+    .btn:hover { opacity:.9; text-decoration:none; }
+
+    section { padding:54px 0; }
+    section h2 { text-align:center; font-size:1.8rem; margin:0 0 8px; }
+    section .sub { text-align:center; color:#555; margin:0 0 36px; }
+
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:20px; }
+    .product { border:1px solid var(--gray); border-radius:12px; padding:22px; display:flex; flex-direction:column; }
+    .product h3 { margin:0 0 6px; font-size:1.2rem; }
+    .product .price { color:var(--blue); font-weight:700; font-size:1.05rem; margin:0 0 10px; }
+    .product p { margin:0 0 18px; color:#444; flex:1; }
+    .product a { font-weight:700; }
+
+    .faq { background:#f6f8fb; }
+    .faq-item { max-width:720px; margin:0 auto 14px; border:1px solid var(--gray); border-radius:10px; padding:16px 20px; background:#fff; }
+    .faq-item h3 { margin:0 0 6px; font-size:1.05rem; }
+    .faq-item p { margin:0; color:#444; }
+
+    footer { background:var(--navy); color:var(--gray); text-align:center; padding:40px 20px; }
     footer a { color:var(--blue); }
+    footer .links { margin:14px 0; }
+    footer .links a { margin:0 12px; font-weight:600; }
+    footer small { display:block; margin-top:14px; opacity:.7; }
+
+    @media (max-width:560px){
+      .hero h1 { font-size:1.8rem; }
+      nav a { margin-left:14px; font-size:.85rem; }
+      .brand span { display:none; }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Inkblade Author Studio</h1>
-    <p>Done-for-you promotion tools for web novel authors</p>
+  <header class="top">
+    <div class="wrap">
+      <div class="brand">
+        <img src="assets/logo.png" alt="Inkblade Author Studio logo" />
+        <span>Inkblade Author Studio</span>
+      </div>
+      <nav>
+        <a href="#products">Products</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://instagram.com/inkblade_author_studio" target="_blank" rel="noopener">Instagram</a>
+      </nav>
+    </div>
   </header>
-  <main>
-    <div class="product">
-      <h2>Fantasy Author Promotion Vault</h2>
-      <p>350 ready captions, templates, and a release calendar built for Royal Road and Patreon authors.</p>
-      <a href="https://inkblade.gumroad.com/">View on Gumroad</a>
+
+  <div class="hero">
+    <div class="wrap">
+      <img src="assets/logo.png" alt="Inkblade Author Studio logo" />
+      <h1>Done-for-you promotion tools for web novel authors</h1>
+      <p>Captions, calendars, and promo kits built for fantasy and LitRPG writers on Royal Road and Patreon. Spend your energy writing — we handle the marketing.</p>
+      <div class="cta">
+        <a class="btn" href="#products">Browse the toolkit</a>
+      </div>
     </div>
-    <div class="product">
-      <h2>Fantasy Author Release Calendar</h2>
-      <p>Plan every chapter drop across platforms without the guesswork.</p>
-      <a href="https://inkblade.gumroad.com/">View on Gumroad</a>
+  </div>
+
+  <section id="products">
+    <div class="wrap">
+      <h2>Products</h2>
+      <p class="sub">Five ready-to-use packs. Buy one or grab the complete bundle.</p>
+      <div class="grid">
+        <div class="product">
+          <h3>Fantasy Author Image Pack</h3>
+          <p class="price">$19</p>
+          <p>100 ready-to-post fantasy promotional images.</p>
+          <a href="https://inkblade.gumroad.com/l/fantasy-author-image-pack">View on Gumroad &rarr;</a>
+        </div>
+        <div class="product">
+          <h3>Complete Author Vault</h3>
+          <p class="price">$30</p>
+          <p>The full bundle: captions, calendar, promotion kit, and the fantasy image pack.</p>
+          <a href="https://inkblade.gumroad.com/l/mlklnv">View on Gumroad &rarr;</a>
+        </div>
+        <div class="product">
+          <h3>Author Release Calendar</h3>
+          <p class="price">$12</p>
+          <p>Plan every chapter drop across platforms without the guesswork.</p>
+          <a href="https://inkblade.gumroad.com/l/lvktf">View on Gumroad &rarr;</a>
+        </div>
+        <div class="product">
+          <h3>Author Promotion Vault</h3>
+          <p class="price">$18</p>
+          <p>350 ready captions, templates, and a release calendar built for Royal Road and Patreon authors.</p>
+          <a href="https://inkblade.gumroad.com/l/okltjac">View on Gumroad &rarr;</a>
+        </div>
+        <div class="product">
+          <h3>Fantasy Author Caption Vault</h3>
+          <p class="price">$12</p>
+          <p>Hundreds of platform-ready captions for every chapter drop and milestone.</p>
+          <a href="https://inkblade.gumroad.com/l/imstpy">View on Gumroad &rarr;</a>
+        </div>
+      </div>
     </div>
-    <div class="product">
-      <h2>Complete Creator System</h2>
-      <p>The full bundle: captions, calendar, promotion kit, and the fantasy image pack.</p>
-      <a href="https://inkblade.gumroad.com/">View on Gumroad</a>
+  </section>
+
+  <section id="faq" class="faq">
+    <div class="wrap">
+      <h2>FAQ</h2>
+      <p class="sub">Quick answers for authors getting started.</p>
+      <div class="faq-item">
+        <h3>What platforms are these built for?</h3>
+        <p>Royal Road and Patreon first, but the captions and templates work anywhere you announce a chapter — including Instagram, TikTok, and Pinterest.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Are these digital downloads?</h3>
+        <p>Yes. Every product is a instant-access digital file (templates, images, or copy packs) delivered by Gumroad after purchase.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I use the captions as-is?</h3>
+        <p>Copy, paste, and tweak. They're written to drop in your book title and chapter number so you're live in minutes.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Do you offer a discount?</h3>
+        <p>Use code <strong>LAUNCH</strong> at checkout for 20% off your first order.</p>
+      </div>
     </div>
-    <div class="product">
-      <h2>Fantasy Author Image Pack</h2>
-      <p>100 ready-to-post fantasy promotional images.</p>
-      <a href="https://inkblade.gumroad.com/">View on Gumroad</a>
-    </div>
-    <p style="margin-top:30px;"><a href="privacy.html">Privacy Policy</a></p>
-  </main>
+  </section>
+
   <footer>
-    Inkblade Author Studio &middot; <a href="https://inkblade.gumroad.com/">Gumroad Store</a>
+    <div class="wrap">
+      <div class="brand" style="justify-content:center; margin-bottom:6px;">
+        <img src="assets/logo.png" alt="Inkblade Author Studio logo" />
+      </div>
+      <div class="links">
+        <a href="https://instagram.com/inkblade_author_studio" target="_blank" rel="noopener">Instagram</a>
+        <a href="mailto:hello@inkbladesauthorstudio.com">hello@inkbladesauthorstudio.com</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+      <small>&copy; 2026 Inkblade Author Studio &middot; <a href="https://inkblade.gumroad.com">Gumroad Store</a></small>
+    </div>
   </footer>
 </body>
 </html>
-
-<!-- build trigger 1784126574 -->
