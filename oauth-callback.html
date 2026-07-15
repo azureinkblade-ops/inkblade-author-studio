@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inkblade Author Studio — OAuth Callback</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background:#07111F; color:#D8DEE8; display:flex; align-items:center; justify-content:center; min-height:100vh; margin:0; }
+    .box { max-width:560px; padding:32px; background:#0d1a2b; border:1px solid #1d2d44; border-radius:12px; }
+    h1 { color:#38C7FF; font-size:1.2rem; margin-top:0; }
+    code { display:block; word-break:break-all; background:#07111F; padding:12px; border-radius:8px; color:#9fe9ff; margin:12px 0; }
+    button { background:#38C7FF; color:#07111F; border:0; padding:10px 16px; border-radius:8px; font-weight:600; cursor:pointer; }
+    .hint { font-size:.85rem; color:#8aa0bd; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Pinterest OAuth callback</h1>
+    <p class="hint">Copy the code below and paste it to Hermes to finish token exchange.</p>
+    <code id="code">reading…</code>
+    <button onclick="copyCode()">Copy code</button>
+    <p class="hint" id="state"></p>
+  </div>
+  <script>
+    const p = new URLSearchParams(window.location.search);
+    const code = p.get("code");
+    const state = p.get("state");
+    document.getElementById("code").textContent = code ? code : "(no code found in URL)";
+    if (state) document.getElementById("state").textContent = "state: " + state;
+    function copyCode() {
+      if (code) { navigator.clipboard.writeText(code); alert("Code copied"); }
+    }
+  </script>
+</body>
+</html>
