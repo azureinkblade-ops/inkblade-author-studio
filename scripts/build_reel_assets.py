@@ -35,7 +35,7 @@ VO_TEXT = (
     "with promo layouts and launch checklists. "
     "The Release Calendar keeps every drop on schedule. "
     "The Fantasy Image Pack hands you a hundred ready-to-post fantasy images. "
-    "Or grab the Complete Author Vault, all five tools in one bundle. "
+    "Or grab the Complete Author Vault, caption, promotion, and calendar in one bundle. "
     "LAUNCH is on, twenty percent off, link in bio."
 )
 
@@ -56,7 +56,7 @@ BEATS = [
      "Plan every drop, checklist built in.", None),
     ("img-01.png", "FANTASY IMAGE PACK", "100 images, ready to post",
      "Elves, knights, dragons, magic, castles.", None),
-    ("bundle-01.png", "COMPLETE AUTHOR VAULT", "All five tools, one bundle",
+    ("bundle-01.png", "COMPLETE AUTHOR VAULT", "Four core tools, one bundle",
      "Save twelve dollars versus buying separate.", None),
 ]
 HOOK_SEC = 3.0
@@ -111,10 +111,13 @@ def kb(img, t, zoom_from=1.0, zoom_to=1.7):
 
 
 def card(draw, spec, alpha):
+    """Text-only overlay, no box/border. Soft scrims top+bottom for contrast,
+    then the kicker / headline / detail / brand text."""
     a = int(alpha)
-    draw.rounded_rectangle((70, 255, 1010, 1430), radius=40,
-                           fill=(7, 17, 31, int(200 * a / 255)),
-                           outline=BLUE + (a,), width=4)
+    # top scrim behind kicker+headline
+    draw.rectangle([0, 230, W, 640], fill=(7, 17, 31, int(150 * a / 255)))
+    # bottom scrim behind detail
+    draw.rectangle([0, 1080, W, 1240], fill=(7, 17, 31, int(150 * a / 255)))
     centered(draw, spec[1], 380, 42, BLUE + (a,))
     centered(draw, spec[2], 520, 78, WHITE + (a,))
     centered(draw, spec[3], 1130, 40, GRAY + (a,))
