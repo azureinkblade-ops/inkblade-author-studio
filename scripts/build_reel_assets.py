@@ -101,7 +101,7 @@ def load_asset(name):
     return ImageOps.fit(img, (W, H), method=Image.Resampling.LANCZOS)
 
 
-def kb(img, t, zoom_from=1.0, zoom_to=0.86):
+def kb(img, t, zoom_from=1.0, zoom_to=1.7):
     bw, bh = img.size
     scale = zoom_from + (zoom_to - zoom_from) * t
     cw, ch = int(W * scale), int(H * scale)
@@ -145,7 +145,7 @@ def main():
         hook_frames = int(HOOK_SEC * FPS)
         for f in range(hook_frames):
             t = f / hook_frames
-            base = kb(hook_asset, t, zoom_from=1.12, zoom_to=0.92)
+            base = kb(hook_asset, t, zoom_from=1.4, zoom_to=1.05)
             base = Image.blend(base, Image.new("RGB", (W, H), NAVY), 0.45)
             layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
             td = ImageDraw.Draw(layer)
@@ -172,7 +172,7 @@ def main():
             fade = int(FPS * 0.35)
             for f in range(n):
                 t = f / n
-                base = kb(asset, t)
+                base = kb(asset, t, zoom_from=1.15, zoom_to=1.7)
                 base = Image.blend(base, Image.new("RGB", (W, H), NAVY), 0.30)
                 layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
                 td = ImageDraw.Draw(layer)
