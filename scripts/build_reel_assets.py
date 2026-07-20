@@ -111,17 +111,24 @@ def kb(img, t, zoom_from=1.0, zoom_to=1.7):
 
 
 def card(draw, spec, alpha):
-    """Text-only overlay, no box/border. Soft scrims top+bottom for contrast,
-    then the kicker / headline / detail / brand text."""
+    """Bold lower-third caption bar: solid navy rounded bar at the bottom third,
+    large high-contrast text (kicker + headline + detail). Keeps the zoomed product
+    art visible above; the bar carries the legible spoken line."""
     a = int(alpha)
-    # top scrim behind kicker+headline
-    draw.rectangle([0, 230, W, 640], fill=(7, 17, 31, int(150 * a / 255)))
-    # bottom scrim behind detail
-    draw.rectangle([0, 1080, W, 1240], fill=(7, 17, 31, int(150 * a / 255)))
-    centered(draw, spec[1], 380, 42, BLUE + (a,))
-    centered(draw, spec[2], 520, 78, WHITE + (a,))
-    centered(draw, spec[3], 1130, 40, GRAY + (a,))
-    centered(draw, "INKBLADE AUTHOR STUDIO", 1695, 34, BLUE + (a,))
+    # solid caption bar (bottom ~38% of frame)
+    bar_top = 1180
+    draw.rounded_rectangle([40, bar_top, W - 40, H - 60], radius=36,
+                           fill=(7, 17, 31, int(235 * a / 255)))
+    # thin cyan top accent on the bar
+    draw.rectangle([40, bar_top, W - 40, bar_top + 6], fill=BLUE + (a,))
+    # kicker (cyan, small, top of bar)
+    centered(draw, spec[1], bar_top + 46, 40, BLUE + (a,), max_width=960)
+    # headline (white, LARGE, centered in bar)
+    centered(draw, spec[2], bar_top + 110, 72, WHITE + (a,), max_width=960, spacing=12)
+    # detail (grey, under headline)
+    centered(draw, spec[3], bar_top + 300, 40, GRAY + (a,), max_width=960)
+    # brand line (cyan, very bottom)
+    centered(draw, "INKBLADE AUTHOR STUDIO", H - 110, 30, BLUE + (a,), max_width=960)
 
 
 def gen_vo(text, out_mp3):
@@ -135,11 +142,22 @@ def gen_vo(text, out_mp3):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=os.path.join(OUT, "reel-assets-2026-07-19.mp4"))
+    ap.add_argument("--screens", default=None,
+                    help="Folder of REAL screenshots to use as beats (cap.png, promo.png, "
+                         "cal.png, img.png, bundle.png). Overrides product PNGs.")
     args = ap.parse_args()
     os.makedirs(OUT, exist_ok=True)
     vo_mp3 = os.path.join(ROOT, "_assemble", "assets_vo.mp3")
     os.makedirs(os.path.dirname(vo_mp3), exist_ok=True)
     gen_vo(VO_TEXT, vo_mp3)
+
+    # map beat -> screenshot if provided
+    def beat_asset(b):
+        if args.screens:
+            cand = os.path.join(args.screens, b[0].split("-")[0] + ".png")
+            if os.path.exists(cand):
+                return Image.open(cand).convert("RGB")
+        return load_asset(b[0])
 
     with tempfile.TemporaryDirectory(prefix="studio-assets-reel-") as tmp:
         hook_asset = load_asset(BEATS[0][0])
@@ -154,23 +172,23 @@ def main():
             td = ImageDraw.Draw(layer)
             alpha = 255 if f > 4 else int(255 * f / 4)
             shift = max(0, 30 - f * 6)
-            y = 240 - shift
-            for line in wrap("I don't have time", td, font(86), 940):
-                w = td.textlength(line, font=font(86))
-                td.text(((W - w) / 2, y), line, font=font(86), fill=WHITE + (alpha,))
-                y += 100
-            y = 430 - shift
-            for line in wrap("to make graphics, here is the fix.", td, font(64), 940):
-                w = td.textlength(line, font=font(64))
-                td.text(((W - w) / 2, y), line, font=font(64), fill=BLUE + (alpha,))
-                y += 78
+            y = 250 - shift
+            for line in wrap("I don't have time", td, font(120), 940):
+                w = td.textlength(line, font=font(120))
+                td.text(((W - w) / 2, y), line, font=font(120), fill=WHITE + (alpha,))
+                y += 132
+            y = 470 - shift
+            for line in wrap("to make graphics, here is the fix.", td, font(72), 940):
+                w = td.textlength(line, font=font(72))
+                td.text(((W - w) / 2, y), line, font=font(72), fill=BLUE + (alpha,))
+                y += 90
             centered(td, "INKBLADE AUTHOR STUDIO", 1695, 34, BLUE + (alpha,))
             frame = Image.alpha_composite(base.convert("RGBA"), layer).convert("RGB")
             frame.save(os.path.join(tmp, f"f{idx:04d}.png"))
             idx += 1
 
         # PRODUCT BEATS
-        for asset, spec in [(load_asset(b[0]), b) for b in BEATS]:
+        for asset, spec in [(beat_asset(b), b) for b in BEATS]:
             n = int(BEAT_SEC * FPS)
             fade = int(FPS * 0.35)
             for f in range(n):
