@@ -96,6 +96,13 @@ def wrap(text, draw, fnt, max_width):
 
 
 def centered(draw, text, y, size, color, max_width=940, spacing=16):
+    # shrink font until every wrapped line fits max_width (never clip)
+    while size > 24:
+        f = font(size)
+        lines = wrap(text, draw, f, max_width)
+        if all(draw.textlength(ln, font=f) <= max_width for ln in lines):
+            break
+        size -= 4
     f = font(size)
     for line in wrap(text, draw, f, max_width):
         w = draw.textlength(line, font=f)
