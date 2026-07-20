@@ -44,7 +44,11 @@ FPS = 30
 NAVY = (7, 17, 31)
 BLUE = (56, 199, 255)
 WHITE = (255, 255, 255)
-GRAY = (216, 222, 232)
+# Consistent on-screen type system (clean, one font, two sizes, two colors):
+#   HEAD = large white headline   LABEL = smaller cyan label/brand
+FONT_HEAD = 96
+FONT_LABEL = 44
+FONT_BOLD = True  # font() already prefers arialbd (bold clean sans)
 
 # (asset, kicker, headline, detail, vo continues from VO_TEXT order)
 BEATS = [
@@ -63,10 +67,16 @@ HOOK_SEC = 3.0
 BEAT_SEC = (62.0 - HOOK_SEC) / len(BEATS)
 
 
-def font(size):
-    for p in (r"C:\Windows\Fonts\arialbd.ttf", r"C:\Windows\Fonts\arial.ttf"):
-        if os.path.exists(p):
-            return ImageFont.truetype(p, size)
+def font(size, bold=True):
+    # Clean, consistent font: Segoe UI (modern) with Arial fallback. One family only.
+    if bold:
+        for p in (r"C:\Windows\Fonts\segoeuib.ttf", r"C:\Windows\Fonts\arialbd.ttf"):
+            if os.path.exists(p):
+                return ImageFont.truetype(p, size)
+    else:
+        for p in (r"C:\Windows\Fonts\segoeui.ttf", r"C:\Windows\Fonts\arial.ttf"):
+            if os.path.exists(p):
+                return ImageFont.truetype(p, size)
     return ImageFont.load_default()
 
 
@@ -111,24 +121,21 @@ def kb(img, t, zoom_from=1.0, zoom_to=1.7):
 
 
 def card(draw, spec, alpha):
-    """Bold lower-third caption bar: solid navy rounded bar at the bottom third,
-    large high-contrast text (kicker + headline + detail). Keeps the zoomed product
-    art visible above; the bar carries the legible spoken line."""
+    """Consistent on-screen type: HEAD (white, FONT_HEAD) + LABEL (cyan, FONT_LABEL).
+    Solid navy caption bar at the bottom third; product art stays visible above."""
     a = int(alpha)
-    # solid caption bar (bottom ~38% of frame)
     bar_top = 1180
     draw.rounded_rectangle([40, bar_top, W - 40, H - 60], radius=36,
                            fill=(7, 17, 31, int(235 * a / 255)))
-    # thin cyan top accent on the bar
     draw.rectangle([40, bar_top, W - 40, bar_top + 6], fill=BLUE + (a,))
-    # kicker (cyan, small, top of bar)
-    centered(draw, spec[1], bar_top + 46, 40, BLUE + (a,), max_width=960)
-    # headline (white, LARGE, centered in bar)
-    centered(draw, spec[2], bar_top + 110, 72, WHITE + (a,), max_width=960, spacing=12)
-    # detail (grey, under headline)
-    centered(draw, spec[3], bar_top + 300, 40, GRAY + (a,), max_width=960)
-    # brand line (cyan, very bottom)
-    centered(draw, "INKBLADE AUTHOR STUDIO", H - 110, 30, BLUE + (a,), max_width=960)
+    # kicker (cyan LABEL)
+    centered(draw, spec[1], bar_top + 54, FONT_LABEL, BLUE + (a,), max_width=960)
+    # headline (white HEAD)
+    centered(draw, spec[2], bar_top + 130, FONT_HEAD, WHITE + (a,), max_width=960, spacing=14)
+    # detail (cyan LABEL, same size/color as kicker for consistency)
+    centered(draw, spec[3], bar_top + 320, FONT_LABEL, BLUE + (a,), max_width=960)
+    # brand (cyan LABEL)
+    centered(draw, "INKBLADE AUTHOR STUDIO", H - 110, FONT_LABEL, BLUE + (a,), max_width=960)
 
 
 def gen_vo(text, out_mp3):
@@ -172,17 +179,17 @@ def main():
             td = ImageDraw.Draw(layer)
             alpha = 255 if f > 4 else int(255 * f / 4)
             shift = max(0, 30 - f * 6)
-            y = 250 - shift
-            for line in wrap("I don't have time", td, font(120), 940):
-                w = td.textlength(line, font=font(120))
-                td.text(((W - w) / 2, y), line, font=font(120), fill=WHITE + (alpha,))
-                y += 132
-            y = 470 - shift
-            for line in wrap("to make graphics, here is the fix.", td, font(72), 940):
-                w = td.textlength(line, font=font(72))
-                td.text(((W - w) / 2, y), line, font=font(72), fill=BLUE + (alpha,))
-                y += 90
-            centered(td, "INKBLADE AUTHOR STUDIO", 1695, 34, BLUE + (alpha,))
+            y = 300 - shift
+            for line in wrap("I don't have time", td, font(FONT_HEAD), 940):
+                w = td.textlength(line, font=font(FONT_HEAD))
+                td.text(((W - w) / 2, y), line, font=font(FONT_HEAD), fill=WHITE + (alpha,))
+                y += FONT_HEAD + 24
+            y = 560 - shift
+            for line in wrap("to make graphics, here is the fix.", td, font(FONT_LABEL), 940):
+                w = td.textlength(line, font=font(FONT_LABEL))
+                td.text(((W - w) / 2, y), line, font=font(FONT_LABEL), fill=BLUE + (alpha,))
+                y += FONT_LABEL + 16
+            centered(td, "INKBLADE AUTHOR STUDIO", 1695, FONT_LABEL, BLUE + (alpha,))
             frame = Image.alpha_composite(base.convert("RGBA"), layer).convert("RGB")
             frame.save(os.path.join(tmp, f"f{idx:04d}.png"))
             idx += 1
