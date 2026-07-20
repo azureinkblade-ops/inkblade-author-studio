@@ -15,8 +15,12 @@
     h1,h2,h3 { line-height:1.2; color:var(--navy); }
     .eyebrow { text-transform:uppercase; letter-spacing:.12em; font-size:.8rem; font-weight:700; color:var(--blue); margin:0 0 10px; }
 
+    /* launch bar */
+    .launch-bar { background:var(--blue); color:var(--navy); text-align:center; font-weight:700; font-size:.92rem; padding:9px 16px; position:sticky; top:0; z-index:30; }
+    .launch-bar a { color:var(--navy); text-decoration:underline; }
+
     /* nav */
-    header.top { background:var(--navy); position:sticky; top:0; z-index:20; box-shadow:0 2px 14px rgba(0,0,0,.25); }
+    header.top { background:var(--navy); position:sticky; top:39px; z-index:20; box-shadow:0 2px 14px rgba(0,0,0,.25); }
     header.top .wrap { display:flex; align-items:center; justify-content:space-between; padding-top:14px; padding-bottom:14px; }
     .brand { display:flex; align-items:center; gap:12px; }
     .brand img { height:38px; width:auto; }
@@ -80,6 +84,17 @@
     .prod .price { color:var(--blue); font-weight:800; font-size:1.15rem; margin:0 0 12px; }
     .prod p { margin:0 0 20px; color:#55606f; flex:1; }
     .prod a { font-weight:700; }
+    .bundle-callout { text-align:center; margin-top:18px; }
+    .bundle-callout .badge { background:rgba(56,199,255,.15); color:var(--blue); font-weight:700; padding:4px 12px; border-radius:20px; font-size:.8rem; }
+
+    /* trust band */
+    .trust { background:linear-gradient(160deg,#0a1830 0%,#07111F 100%); color:#fff; text-align:center; padding:60px 0; }
+    .trust h2 { color:#fff; }
+    .trust .sub { color:var(--gray); }
+    .trust .cta { margin-top:10px; }
+    .trust .cta a { display:inline-block; font-weight:700; padding:12px 24px; border-radius:9px; margin:6px; }
+    .trust .cta a.solid { background:var(--blue); color:var(--navy); }
+    .trust .cta a.ghost { background:transparent; color:#fff; border:1px solid var(--gray); }
 
     /* faq */
     .faq { background:#f6f8fb; }
@@ -113,10 +128,15 @@
       nav a { margin-left:14px; font-size:.85rem; }
       .brand span { display:none; }
       .priv-grid { grid-template-columns:1fr; }
+      header.top { top:62px; }
     }
   </style>
 </head>
 <body>
+  <div class="launch-bar">
+    🚀 Launch offer: use code <a href="https://inkblade.gumroad.com" target="_blank" rel="noopener">LAUNCH</a> at checkout for 20% off your first order.
+  </div>
+
   <header class="top">
     <div class="wrap">
       <div class="brand">
@@ -152,7 +172,7 @@
         </div>
       </div>
       <div class="hero-art">
-        <img src="assets/logo.png" alt="Inkblade Author Studio brand mark" />
+        <img src="assets/brand/hero-keyvisual.png" alt="Inkblade Author Studio marketing dashboard key visual" />
       </div>
     </div>
   </div>
@@ -260,7 +280,7 @@
         <div class="prod">
           <h3>Fantasy Author Image Pack</h3>
           <p class="price">$19</p>
-          <p>100 ready-to-post fantasy promotional images, sized for Instagram, TikTok, and Pinterest.</p>
+          <p>100 high-resolution fantasy images (1024×1024) — elves, knights, dragons, magic, and castles. Commercial license included. Drop them into ads, covers, chapter art, and social posts.</p>
           <a href="https://inkblade.gumroad.com/l/fantasy-author-image-pack">View on Gumroad &rarr;</a>
         </div>
         <div class="prod">
@@ -284,11 +304,25 @@
         <div class="prod">
           <h3>Fantasy Author Caption Vault</h3>
           <p class="price">$12</p>
-          <p>Hundreds of platform-ready captions for every chapter drop, milestone, and promo window.</p>
+          <p>350 platform-ready captions for every chapter drop, milestone, and promo window.</p>
           <a href="https://inkblade.gumroad.com/l/imstpy">View on Gumroad &rarr;</a>
         </div>
       </div>
+      <p class="bundle-callout"><span class="badge">Save $12</span> The Complete Author Vault bundles the Promotion Vault ($18), Release Calendar ($12), and Caption Vault ($12) — <strong>$42 of product for $30</strong>. (Image Pack sold separately.)</p>
       <p style="text-align:center;margin-top:28px;">Use code <strong style="color:var(--blue);">LAUNCH</strong> at checkout for 20% off your first order.</p>
+    </div>
+  </section>
+
+  <!-- TRUST BAND -->
+  <section class="trust">
+    <div class="wrap">
+      <p class="eyebrow">Built by a working author</p>
+      <h2>Done-for-you, by someone who ships chapters too.</h2>
+      <p class="sub">Inkblade Author Studio is run by Azure Inkblade, a published progression-fiction author. Every pack is the marketing we wished existed when we started.</p>
+      <div class="cta">
+        <a class="solid" href="https://instagram.com/inkblade_author_studio" target="_blank" rel="noopener">Follow our work</a>
+        <a class="ghost" href="mailto:hello@inkbladesauthorstudio.com">Join the email list</a>
+      </div>
     </div>
   </section>
 
