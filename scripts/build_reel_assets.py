@@ -104,6 +104,12 @@ def centered(draw, text, y, size, color, max_width=940, spacing=16):
             break
         size -= 4
     f = font(size)
+    # SAFETY: abort the build if text would clip the frame (daily-cron guard)
+    try:
+        from reel_text_safe import assert_text_fits
+        assert_text_fits(draw, text, size, y, size + spacing, max_width)
+    except ImportError:
+        pass
     for line in wrap(text, draw, f, max_width):
         w = draw.textlength(line, font=f)
         draw.text(((W - w) / 2, y), line, font=f, fill=color)
@@ -142,7 +148,7 @@ def card(draw, spec, alpha):
     # detail (cyan LABEL, same size/color as kicker for consistency)
     centered(draw, spec[3], bar_top + 320, FONT_LABEL, BLUE + (a,), max_width=960)
     # brand (cyan LABEL)
-    centered(draw, "INKBLADE AUTHOR STUDIO", H - 110, FONT_LABEL, BLUE + (a,), max_width=960)
+    centered(draw, "INKBLADE AUTHOR STUDIO", H - 150, FONT_LABEL, BLUE + (a,), max_width=960)
 
 
 def gen_vo(text, out_mp3):

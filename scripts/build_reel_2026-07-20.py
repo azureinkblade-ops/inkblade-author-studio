@@ -6,9 +6,14 @@ Reel: Ken Burns zoom + per-beat fade-in captions + edge_tts voiceover (GPU-free)
 """
 import os
 import subprocess
+import sys
 import tempfile
 
 from PIL import Image, ImageDraw, ImageFont
+
+# make the shared text-safety verifier importable (it lives in site/scripts/)
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "site", "scripts"))
+from reel_text_safe import assert_text_fits  # fails the build if text would clip
 
 BASE = r"C:\Users\David\Documents\Inkblade Author Studio\site\assets\posts\reel-2026-07-20-base.png"
 SITE = r"C:\Users\David\Documents\Inkblade Author Studio\site\assets\posts"
@@ -96,6 +101,8 @@ def composite_cover(base):
     block_h = line_h * len(guarded)
     # center block in upper-third band (y from 0.14H to 0.55H), clamp inside frame
     y = max(int(H * 0.16), int(H * 0.30) - block_h // 2)
+    # SAFETY: abort if the block would clip top/bottom of the frame
+    assert_text_fits(d, "  ".join(guarded), fnt.size, y, line_h, max_w=W - 120)
     bar_top = y - 50
     bar_bottom = y + block_h + 20
     d.rectangle([60, bar_top, W - 60, bar_bottom], fill=(7, 17, 31, 175))
@@ -106,8 +113,9 @@ def composite_cover(base):
         d.text((x + 3, yy + 3), ln, font=fnt, fill=(0, 0, 0, 200))
         d.text((x, yy), ln, font=fnt, fill=WHITE)
         yy += line_h
-    # small brand tag bottom (width-guarded)
-    draw_safe(d, "INKBLADE AUTHOR STUDIO", W // 2, H - 90, 40, BLUE)
+    # small brand tag bottom (width-guarded, kept inside safe band)
+    assert_text_fits(d, "INKBLADE AUTHOR STUDIO", 40, H - 140, 40 + 12, max_w=W - 120)
+    draw_safe(d, "INKBLADE AUTHOR STUDIO", W // 2, H - 140, 40, BLUE)
     img = img.convert("RGBA")
     img = Image.alpha_composite(img, overlay).convert("RGB")
     return img
@@ -152,6 +160,8 @@ def draw_beats(overlay, t, total):
         line_h = fnt.size + 12
         block_h = line_h * len(lines)
         bar_top = int(H * 0.62)
+        # SAFETY: abort if the block would clip the frame
+        assert_text_fits(d, "  ".join(lines), fnt.size, bar_top, line_h, max_w=W - 120)
         bar_bottom = bar_top + block_h + 80
         d.rectangle([50, bar_top - 40, W - 50, bar_bottom], fill=(7, 17, 31, 175))
         yy = bar_top
